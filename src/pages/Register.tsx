@@ -8,7 +8,8 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState<"employer" | "worker">("employer");
+  // const [role, setRole] = useState<"employer" | "worker">("employer");
+  const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Register = () => {
       email,
       password,
       name,
+      role: role,
     });
 
     setLoading(false);
@@ -42,7 +44,7 @@ const Register = () => {
       return;
     }
 
-    navigate("/login");
+    navigate("/");
   };
 
   return (

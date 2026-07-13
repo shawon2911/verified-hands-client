@@ -1,19 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
+import { Button, Dropdown, Label } from "@heroui/react";
 
 const Navbar = () => {
   const location = useLocation();
-  const [session, setSession] = useState<any>(null);
+  const { data: session } = authClient.useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data } = await authClient.getSession();
-      setSession(data);
-    };
-    fetchSession();
-  }, []);
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -27,23 +20,30 @@ const Navbar = () => {
   ];
 
   // Role-based additional links
-  const roleLinks = session?.user?.role === "employer" 
-    ? [{ name: "My requests", path: "/my-requests" }]
-    : session?.user?.role === "worker"
-    ? [{ name: "My profile", path: "/my-profile" }]
-    : [];
+  const roleLinks =
+    session?.user?.role === "employer"
+      ? [{ name: "My requests", path: "/my-requests" }]
+      : session?.user?.role === "worker"
+        ? [{ name: "My profile", path: "/my-profile" }]
+        : [];
 
   const allLinks = [...navLinks, ...roleLinks];
 
   return (
     <nav className="sticky top-0 z-50 bg-paper border-b border-[#E5E1D8]">
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-8 h-[72px] flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 font-heading font-bold text-xl">
-          <div className="w-[34px] h-[34px] bg-navy rounded-lg flex items-center justify-center text-amber font-bold text-lg">
-            V
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 font-heading font-bold text-xl"
+        >
+          <div className="w-8.5 h-8.5 bg-navy rounded-lg flex items-center justify-center text-amber font-bold text-lg">
+            VH
           </div>
-          VerifiedHands
+          <span className="text-2xl font-bold">
+            <span>Verified</span>
+            <span className="text-amber-500">Hands</span>
+          </span>
         </Link>
 
         {/* Desktop Nav */}
@@ -52,11 +52,11 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`transition ${
+              className={`transition  ${
                 isActive(link.path)
-                  ? "text-navy border-b-2 border-amber pb-[22px]"
-                  : "text-navy-2 hover:text-navy"
-              }`}
+                  ? "text-navy border-b-2 border-amber pb-5.5"
+                  : "text-navy-2 "
+              } hover:text-amber-dark text-base`}
             >
               {link.name}
             </Link>
@@ -67,33 +67,79 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           {session ? (
             <>
-              {session.user?.role === "employer" && (
-                <Link to="/post-job" className="btn-primary">
+              {session?.user?.role === "employer" && (
+                <Link
+                  to="/post-job"
+                  className="bg-amber py-2 px-3 font-medium rounded-xl text-black"
+                >
                   Post a job
                 </Link>
               )}
-              {session.user?.role === "worker" && (
-                <Link to="/post-job" className="btn-primary">
-                  Post a job
+              {session?.user?.role === "worker" && (
+                <Link
+                  to="/profile/add"
+                  className="bg-amber py-2 px-3 font-medium rounded-xl text-black"
+                >
+                  Add Profile
                 </Link>
               )}
-              <div className="w-9 h-9 rounded-full bg-navy text-amber flex items-center justify-center font-bold text-sm">
-                {session.user?.name?.charAt(0) || "U"}
-              </div>
-              <button
-                onClick={() => authClient.signOut()}
-                className="text-sm text-navy-2 hover:text-red-600"
-              >
-                Logout
-              </button>
+
+              <Dropdown>
+                <Dropdown.Trigger className="rounded-full focus:outline-none focus:ring-2 focus:ring-amber/50 transition">
+                  <div className="w-9 h-9 rounded-full bg-navy text-amber flex items-center justify-center font-bold text-sm shadow-sm hover:opacity-90 transition cursor-pointer">
+                    {session?.user?.name?.charAt(0) || "U"}
+                  </div>
+                </Dropdown.Trigger>
+
+                <Dropdown.Popover className="rounded-xl mt-2 overflow-hidden shadow-lg border border-gray-100 bg-white">
+                  <Dropdown.Menu
+                    className="p-1 min-w-[140px]"
+                    onAction={(key) => console.log(`Selected: ${key}`)}
+                  >
+                    <Dropdown.Item
+                      id="logout"
+                      textValue="Logout"
+                      className="outline-none"
+                    >
+                      <button
+                        onClick={() => authClient.signOut()}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200"
+                      >
+                        {/* Logout Icon */}
+                        <svg
+                          xmlns="http://w3.org"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.8}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                          />
+                        </svg>
+                        Logout
+                      </button>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown.Popover>
+              </Dropdown>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn-ghost">
+              <Link
+                to="/login"
+                className="border border-gray-400 rounded-xl font-medium py-2 px-3 hover:shadow-md"
+              >
                 Log in
               </Link>
-              <Link to="/post-job" className="btn-primary">
-                Post a job
+              <Link
+                to="/register"
+                className="bg-amber text-black py-2 px-3 rounded-xl font-medium hover:bg-[#E89A2E]"
+              >
+                Register
               </Link>
             </>
           )}
