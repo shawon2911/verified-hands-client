@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
-import { Button, Dropdown, Label } from "@heroui/react";
+import { Dropdown, Label } from "@heroui/react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const location = useLocation();
@@ -52,13 +53,20 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`transition  ${
+              className={`relative text-sm font-medium ${
                 isActive(link.path)
-                  ? "text-navy border-b-2 border-amber pb-5.5"
-                  : "text-navy-2 "
-              } hover:text-amber-dark text-base`}
+                  ? "text-navy"
+                  : "text-navy-2 hover:text-navy"
+              }`}
             >
               {link.name}
+              {isActive(link.path) && (
+                <motion.div
+                  layoutId="underline"
+                  className="absolute -bottom-[22px] left-0 right-0 h-0.5 bg-amber"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
             </Link>
           ))}
         </div>
