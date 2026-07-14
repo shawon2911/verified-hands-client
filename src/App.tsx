@@ -6,6 +6,7 @@ import MainLayout from "./layout/Mainlayout";
 import Home from "./pages/Home";
 import Workers from "./pages/Workers";
 import WorkerDetails from "./pages/WorkerDetails";
+import About from "./pages/About";
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/workers" element={<Workers />} />
         <Route path="/workers/:id" element={<WorkerDetails />} />
+        <Route path="/about" element={<About />} />
       </Route>
     </Routes>
   );
