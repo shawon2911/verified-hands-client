@@ -6,6 +6,7 @@ import MainLayout from "./layout/Mainlayout";
 import Home from "./pages/Home";
 
 function App() {
+  
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

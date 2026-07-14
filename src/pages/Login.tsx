@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
     setLoading(false);
 
     if (authError) {
-      setError(authError.message ||  "Login failed. Please try again.");
+      setError(authError.message || "Login failed. Please try again.");
       return;
     }
 
@@ -35,36 +36,98 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-72px)] grid grid-cols-1 lg:grid-cols-2">
-      <div className="hidden lg:flex flex-col justify-center bg-navy text-paper px-12 py-16">
-        <span className="font-mono text-xs text-amber tracking-wider mb-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-[calc(100vh-72px)] grid grid-cols-1 lg:grid-cols-2"
+    >
+      {/* Left Side - Brand */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="hidden lg:flex flex-col justify-center bg-navy text-paper px-12 py-16"
+      >
+        <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="font-mono text-xs text-amber tracking-wider mb-4"
+        >
           ● 4,200+ workers ID-verified
-        </span>
-        <h2 className="text-3xl font-bold text-white max-w-md mb-4">
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="text-3xl font-bold text-white max-w-md mb-4"
+        >
           Hire skilled workers you can actually trust.
-        </h2>
-        <p className="text-paper/70 max-w-sm text-sm">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+          className="text-paper/70 max-w-sm text-sm"
+        >
           Log in to book verified electricians, plumbers, drivers and more — or manage your job requests.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      <div className="flex items-center justify-center p-6 lg:p-12">
-        <div className="w-full max-w-sm">
-          <h1 className="text-2xl font-bold text-navy">Welcome back</h1>
-          <p className="text-[#5b5646] text-sm mb-6">Log in to your VerifiedHands account.</p>
+      {/* Right Side - Form */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="flex items-center justify-center p-6 lg:p-12"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="w-full max-w-sm"
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            className="text-2xl font-bold text-navy"
+          >
+            Welcome back
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.7 }}
+            className="text-[#5b5646] text-sm mb-6"
+          >
+            Log in to your VerifiedHands account.
+          </motion.p>
 
-          <button
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="button"
             onClick={handleDemoLogin}
             className="w-full bg-paper-dim border border-dashed border-teal-dark text-teal-dark font-semibold py-3 rounded-lg text-sm mb-5 hover:bg-[#e8e3d6] transition"
           >
             ⚡ Use demo employer login
-          </button>
+          </motion.button>
 
-          <form onSubmit={handleLogin}>
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.9 }}
+            onSubmit={handleLogin}
+          >
             <div className="mb-4">
               <label className="block text-sm font-semibold text-navy-2 mb-1.5">Email</label>
-              <input
+              <motion.input
+                whileFocus={{ scale: 1.01 }}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -76,7 +139,8 @@ const Login = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-semibold text-navy-2 mb-1.5">Password</label>
-              <input
+              <motion.input
+                whileFocus={{ scale: 1.01 }}
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -85,28 +149,41 @@ const Login = () => {
                 required
               />
               {error && (
-                <p className="text-red-600 text-xs mt-1">{error}</p>
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-600 text-xs mt-1"
+                >
+                  {error}
+                </motion.p>
               )}
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
               className="w-full bg-amber text-navy font-bold py-3 rounded-lg hover:bg-[#E89A2E] transition disabled:opacity-50"
             >
               {loading ? "Logging in..." : "Log in"}
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
 
-          <p className="text-center text-sm text-[#5b5646] mt-5">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.0 }}
+            className="text-center text-sm text-[#5b5646] mt-5"
+          >
             Don't have an account?{" "}
             <Link to="/register" className="text-teal-dark font-semibold hover:underline">
               Register
             </Link>
-          </p>
-        </div>
-      </div>
-    </div>
+          </motion.p>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

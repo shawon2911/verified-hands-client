@@ -16,8 +16,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Find workers", path: "/workers" },
     { name: "Categories", path: "/categories" },
-    { name: "How it works", path: "/how-it-works" },
-    { name: "For workers", path: "/for-workers" },
+    
   ];
 
   // Role-based additional links
