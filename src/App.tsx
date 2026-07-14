@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MainLayout from "./layout/Mainlayout";
 import Home from "./pages/Home";
+import Workers from "./pages/Workers";
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/workers" element={<Workers />} />
       </Route>
     </Routes>
   );
