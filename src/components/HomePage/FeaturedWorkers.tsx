@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getWorkers } from "@/lib/api";
+import WorkerCard from "../WorkerCard";
 
 interface Worker {
   _id: string;
@@ -26,7 +26,6 @@ const FeaturedWorkers = () => {
     const fetchWorkers = async () => {
       try {
         const data = await getWorkers();
-        // শুধু প্রথম ৪টা দেখাবো
         setWorkers(data.slice(0, 4));
       } catch (error) {
         console.error("Failed to fetch workers:", error);
@@ -83,9 +82,8 @@ const FeaturedWorkers = () => {
       <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
           className="mb-10"
         >
           <span className="font-mono text-xs text-teal-dark tracking-wider">02 · FEATURED</span>
@@ -97,7 +95,7 @@ const FeaturedWorkers = () => {
 
         <motion.div
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           variants={{
             hidden: { opacity: 0 },
             visible: {
@@ -105,64 +103,10 @@ const FeaturedWorkers = () => {
               transition: { staggerChildren: 0.15, delayChildren: 0.2 },
             },
           }}
-          viewport={{ once: true }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {workers.map((worker) => (
-            <motion.div
-              key={worker._id}
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              whileHover={{
-                y: -8,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-              }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="bg-white border border-[#E5E1D8] rounded-xl overflow-hidden"
-            >
-              <div className="h-[150px] bg-gradient-to-b from-[#d8d2c2] to-[#c7c0aa] flex items-center justify-center text-4xl text-navy-2 relative">
-                {worker.imageUrl ? (
-                  <img
-                    src={worker.imageUrl}
-                    alt={worker.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  "👤"
-                )}
-                {worker.verified && (
-                  <motion.span
-                    initial={{ rotate: 0 }}
-                    whileHover={{ rotate: 8 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute top-3 right-3 bg-teal text-[#eafff9] font-mono text-[10px] font-bold px-2.5 py-1.5 rounded-md rotate-[4deg] border border-teal-dark"
-                  >
-                    ✓ Verified
-                  </motion.span>
-                )}
-              </div>
-              <div className="p-4 flex flex-col gap-2">
-                <div className="font-semibold text-navy">{worker.name}</div>
-                <div className="text-xs font-mono text-[#7a7566]">
-                  {worker.trade} · {worker.experience} yrs exp.
-                </div>
-                <div className="text-xs text-[#5b5646]">{worker.location}</div>
-                <div className="flex justify-between text-xs text-[#5b5646] border-t border-dashed border-[#E5E1D8] pt-2.5 mt-auto">
-                  <span>★ {worker.rating} ({worker.totalReviews})</span>
-                  <span className="font-mono font-semibold text-navy">
-                    ৳{worker.rate}/{worker.rateType}
-                  </span>
-                </div>
-                <Link
-                  to={`/workers/${worker._id}`}
-                  className="mt-1.5 text-center py-2.5 rounded-lg border border-navy text-sm font-semibold text-navy hover:bg-navy hover:text-white transition"
-                >
-                  View profile
-                </Link>
-              </div>
-            </motion.div>
+          {workers.map((worker, index) => (
+            <WorkerCard key={worker._id} worker={worker} index={index} />
           ))}
         </motion.div>
       </div>

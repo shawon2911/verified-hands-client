@@ -77,7 +77,7 @@ const Navbar = () => {
               {session?.user?.role === "employer" && (
                 <Link
                   to="/post-job"
-                  className="bg-amber py-2 px-3 font-medium rounded-xl text-black"
+                  className="bg-amber hover:bg-[#E89A2E] hover:shadow-md py-2 px-3 font-medium rounded-xl text-black"
                 >
                   Post a job
                 </Link>

@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import MainLayout from "./layout/Mainlayout";
 import Home from "./pages/Home";
 import Workers from "./pages/Workers";
+import WorkerDetails from "./pages/WorkerDetails";
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/workers" element={<Workers />} />
+        <Route path="/workers/:id" element={<WorkerDetails />} />
       </Route>
     </Routes>
   );
