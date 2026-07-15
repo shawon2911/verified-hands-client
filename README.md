@@ -1,32 +1,195 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+# 🔧 VerifiedHands
 
-Currently, two official plugins are available:
+**A verified local skilled-worker marketplace for Bangladesh**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Hire electricians, plumbers, drivers, and other blue-collar professionals you can actually trust — every worker is ID and skill verified.
 
-## React Compiler
+# VerifiedHands - Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.0-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-6.0-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-1.6-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+React + TypeScript + Vite + Tailwind CSS
 
-## Expanding the Oxlint configuration
+[Live Demo](#) 
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+</div>
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+---
+
+## 📌 The Problem
+
+In Bangladesh, hiring a local tradesperson — an electrician, plumber, or driver — almost always relies on informal word-of-mouth. There is no standard way to verify identity, confirm skill level, or check a track record before letting someone into your home. **VerifiedHands** solves this by giving every worker a verified profile (NID + skill check) and giving employers a searchable, filterable, ratings-backed marketplace to hire from with confidence.
+
+---
+
+## ✨ Key Features
+
+- 🔐 **Role-based authentication** — separate Employer and Worker experiences, powered by Better-Auth with JWT session verification
+- ✅ **Verified worker profiles** — NID and skill-test verification badge on every listing
+- 🔍 **Advanced search & filtering** — filter by trade, location, price range, and minimum rating; sort by rating, price, or recency
+- 📄 **Public worker profile pages** — bio, skills, availability, rate, and real customer reviews
+- 📝 **Protected dashboards**
+  - Workers can create/manage their profile and view incoming job requests
+  - Employers can post job requests and manage/track them (open, booked, closed)
+- 📊 **Dashboard analytics** — job-posting trends visualized with Recharts
+- 💀 **Skeleton loading states** for a polished, production-grade UX
+- 📱 **Fully responsive** — mobile, tablet, and desktop layouts throughout
+- 🎨 **Custom design system** — consistent typography, spacing, and a signature "Verified" stamp motif across the product
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | React (Vite), TypeScript, Tailwind CSS, Recharts |
+| **Backend** | Node.js, Express.js, TypeScript |
+| **Database** | MongoDB with Mongoose |
+| **Authentication** | Better-Auth (JWT-based sessions, role-based access control) |
+| **Deployment** | Vercel (frontend ) | Redis (Backend)
+
+---
+
+## 🏗️ Architecture
+
+```
+verifiedhands/
+├── verifiedhands-frontend/     # React + TypeScript client
+│   ├── src/
+│   │   ├── components/          # Navbar, Footer, WorkerCard, etc.
+│   │   ├── pages/                # Home, Workers, WorkerDetails, Dashboard...
+│   │   ├── lib/                  # auth-client.ts, api.ts
+│   │   └── types/                # Shared TypeScript interfaces
+│   └── ...
+└── verifiedhands-backend/      # Express + TypeScript API
+    ├── src/
+    │   ├── models/                # User, WorkerProfile, JobRequest, Review
+    │   ├── routes/                 # auth, worker, job routes
+    │   ├── controllers/
+    │   ├── middleware/             # JWT auth guard
+    │   └── config/                 # DB connection, Better-Auth config
+    └── ...
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js v18+
+- MongoDB (local or Atlas)
+
+### Backend Setup
+
+```bash
+cd verifiedhands-backend
+npm install
+```
+
+Create a `.env` file:
+```env
+MONGODB_URI=your_mongodb_connection_string
+BETTER_AUTH_SECRET=your_secret_key
+BASE_URL=http://localhost:5000
+FRONTEND_URL=http://localhost:5173
+PORT=5000
+```
+
+```bash
+npm run dev
+```
+
+### Frontend Setup
+
+```bash
+cd verifiedhands-frontend
+npm install
+```
+
+Create a `.env` file:
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔑 Demo Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| Employer | `demo@employer.com` | `demo123456` |
+| Worker | `demo@worker.com` | `demo123456` |
+
+*(Use the "Demo Login" button on the login page to auto-fill these credentials.)*
+
+---
+
+## 📡 API Overview
+
+| Method | Endpoint | Access |
+|---|---|---|
+| `POST` | `/api/auth/sign-up/email` | Public |
+| `POST` | `/api/auth/sign-in/email` | Public |
+| `GET` | `/api/workers` | Public — filters, sort, pagination |
+| `GET` | `/api/workers/:id` | Public |
+| `POST` | `/api/workers` | Worker (authenticated) |
+| `PATCH` / `DELETE` | `/api/workers/:id` | Owner worker (authenticated) |
+| `POST` | `/api/jobs` | Employer (authenticated) |
+| `GET` | `/api/jobs` | Owner employer (authenticated) |
+| `PATCH` / `DELETE` | `/api/jobs/:id` | Owner employer (authenticated) |
+| `POST` | `/api/reviews` | Employer (authenticated) |
+
+All protected routes verify the session server-side — role checks are never trusted from the client alone.
+
+---
+
+## 🗺️ Pages
+
+| Page | Route | Access |
+|---|---|---|
+| Home | `/` | Public |
+| Find Workers | `/workers` | Public |
+| Worker Details | `/workers/:id` | Public |
+| Login / Register | `/login`, `/register` | Public |
+| Add Worker Profile | `/profile/add` | Worker only |
+| Post a Job | `/jobs/post` | Employer only |
+| Manage Dashboard | `/dashboard/manage` | Authenticated (role-based view) |
+| About / Contact | `/about`, `/contact` | Public |
+
+---
+
+## 📸 Screenshots
+
+> _Add screenshots or a short demo GIF of the Home page, Worker Listing, and Dashboard here._
+
+---
+
+## 🧭 Roadmap
+
+- [ ] Admin role with platform-wide analytics
+- [ ] In-app messaging between employer and worker
+- [ ] Payment integration
+- [ ] SMS/email notifications for job requests
+
+---
+
+## 👤 Author
+
+**Hosenuzzaman**
+Full-Stack Developer building projects with the MERN stack and TypeScript.
+
+- GitHub: [https://github.com/shawon2911]
+- LinkedIn: [https://www.linkedin.com/in/hosenuzzaman]
+
+---
