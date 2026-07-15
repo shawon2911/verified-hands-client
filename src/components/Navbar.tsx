@@ -1,38 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
 import { Dropdown } from "@heroui/react";
 import { motion } from "framer-motion";
 
-// ✅ Session Type
-interface Session {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role?: string;
-  };
-}
-
 const Navbar = () => {
   const location = useLocation();
-  const [session, setSession] = useState<Session | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // ✅ Fetch session on mount
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const { data } = await authClient.getSession();
-        console.log("✅ Navbar Session:", data);
-        setSession(data);
-      } catch (error) {
-        console.error("❌ Session fetch error:", error);
-        setSession(null);
-      }
-    };
-    fetchSession();
-  }, []);
+  // ✅ authClient.useSession() use করছি
+  const { data: session } = authClient.useSession();
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -43,30 +20,31 @@ const Navbar = () => {
     { name: "Categories", path: "/categories" },
   ];
 
- const user = session?.user;
-const userRole = user?.role; // no fallback default
+  // ✅ Role-based links (session null হলে খালি array)
+  const user = session?.user;
+  const userRole = user?.role;
 
-const roleLinks =
-  !session
-    ? []
-    : userRole === "employer"
-    ? [
-        { name: "My requests", path: "/my-requests" },
-        { name: "Dashboard", path: "/dashboard/manage" },
-      ]
-    : userRole === "worker"
-    ? [
-        { name: "My profile", path: "/my-profile" },
-        { name: "Available Jobs", path: "/worker/jobs" },
-      ]
-    : [];
+  const roleLinks =
+    !session
+      ? []
+      : userRole === "employer"
+      ? [
+          { name: "My requests", path: "/my-requests" },
+          { name: "Dashboard", path: "/dashboard/manage" },
+        ]
+      : userRole === "worker"
+      ? [
+          { name: "My profile", path: "/my-profile" },
+          { name: "Available Jobs", path: "/worker/jobs" },
+        ]
+      : [];
 
   const allLinks = [...navLinks, ...roleLinks];
 
-  // ✅ Logout handler
+  // ✅ Logout handler (সেশন null করা)
   const handleLogout = async () => {
     await authClient.signOut();
-    setSession(null);
+    // Better Auth useSession() auto update করবে, তাই setSession দরকার নেই
     setIsMenuOpen(false);
   };
 
@@ -78,11 +56,7 @@ const roleLinks =
           to="/"
           className="flex items-center gap-2 font-heading font-bold text-xl"
         >
-          <img
-            src="/logo.png"
-            alt="VerifiedHands"
-            className="h-12 w-auto"
-          />
+          <img src="/logo.png" alt="VerifiedHands" className="h-12 w-auto" />
           <span className="text-2xl font-bold">
             <span>Verified</span>
             <span className="text-amber-500">Hands</span>
@@ -96,9 +70,7 @@ const roleLinks =
               key={link.path}
               to={link.path}
               className={`relative text-sm font-medium ${
-                isActive(link.path)
-                  ? "text-navy"
-                  : "text-navy-2 hover:text-navy"
+                isActive(link.path) ? "text-navy" : "text-navy-2 hover:text-navy"
               }`}
             >
               {link.name}
@@ -152,7 +124,7 @@ const roleLinks =
                       className="outline-none"
                     >
                       <button
-                        onClick={handleLogout}  // ✅ Fixed
+                        onClick={handleLogout}
                         className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200"
                       >
                         <svg
@@ -220,14 +192,12 @@ const roleLinks =
           ))}
           <div className="border-t border-[#E5E1D8] pt-3 flex flex-col gap-2">
             {session ? (
-              <>
-                <button
-                  onClick={handleLogout}  // ✅ Fixed
-                  className="text-sm text-red-600 text-left"
-                >
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={handleLogout}
+                className="text-sm text-red-600 text-left"
+              >
+                Logout
+              </button>
             ) : (
               <>
                 <Link to="/login" onClick={() => setIsMenuOpen(false)}>
