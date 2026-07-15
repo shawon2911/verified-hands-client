@@ -24,7 +24,7 @@ const Navbar = () => {
     session?.user?.role === "employer"
       ? [{ name: "My requests", path: "/my-requests" }, { name: "Dashboard", path: "/dashboard/manage"}]
       : session?.user?.role === "worker"
-        ? [{ name: "My profile", path: "/my-profile" }]
+        ? [{ name: "My profile", path: "/my-profile" }, { name: "Available Jobs", path: "/worker/jobs" }]
         : [];
 
   const allLinks = [...navLinks, ...roleLinks];

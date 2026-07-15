@@ -75,17 +75,23 @@ const Dashboard = () => {
   };
 
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case "open":
-        return "status-open";
-      case "booked":
-        return "status-booked";
-      case "closed":
-        return "status-closed";
-      default:
-        return "";
-    }
-  };
+  switch (status) {
+    case "open":
+      return "bg-green-100 text-green-700";
+    case "booked":
+      return "bg-amber-100 text-amber-700";
+    case "in-progress":
+      return "bg-blue-100 text-blue-700";
+    case "completed":
+      return "bg-teal-100 text-teal-700";
+    case "closed":
+      return "bg-gray-100 text-gray-600";
+    case "cancelled":
+      return "bg-red-100 text-red-700";
+    default:
+      return "bg-gray-100 text-gray-600";
+  }
+};
 
   const getStatusLabel = (status: string) => {
     return status.charAt(0).toUpperCase() + status.slice(1);
@@ -284,7 +290,7 @@ const maxHeight = Math.max(...weeklyData.map(d => d.height), 40);
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`text-xs font-mono font-semibold px-3 py-1 rounded-full ${getStatusColor(job.status)}`}
+                          className={`text-xs font-mono font-semibold px-3 py-1 rounded-full  ${getStatusColor(job.status)}`}
                         >
                           {getStatusLabel(job.status)}
                         </span>
