@@ -24,12 +24,12 @@ interface Worker {
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
-  const [userRole, setUserRole] = useState("employer");
+  const [_user, setUser] = useState<any>(null);
+  const [_userRole, setUserRole] = useState("employer");
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filter, setFilter] = useState("all");
-  const [workerProfile, setWorkerProfile] = useState<Worker | null>(null);
+  const [_workerProfile, setWorkerProfile] = useState<Worker | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

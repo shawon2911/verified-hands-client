@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
-import { Dropdown, Label } from "@heroui/react";
+import { Dropdown } from "@heroui/react";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
@@ -16,15 +16,20 @@ const Navbar = () => {
   const navLinks = [
     { name: "Find workers", path: "/workers" },
     { name: "Categories", path: "/categories" },
-    
   ];
 
   // Role-based additional links
   const roleLinks =
     session?.user?.role === "employer"
-      ? [{ name: "My requests", path: "/my-requests" }, { name: "Dashboard", path: "/dashboard/manage"}]
+      ? [
+          { name: "My requests", path: "/my-requests" },
+          { name: "Dashboard", path: "/dashboard/manage" },
+        ]
       : session?.user?.role === "worker"
-        ? [{ name: "My profile", path: "/my-profile" }, { name: "Available Jobs", path: "/worker/jobs" }]
+        ? [
+            { name: "My profile", path: "/my-profile" },
+            { name: "Available Jobs", path: "/worker/jobs" },
+          ]
         : [];
 
   const allLinks = [...navLinks, ...roleLinks];
@@ -34,19 +39,19 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 flex items-center justify-between">
         {/* Logo */}
         <Link
-  to="/"
-  className="flex items-center gap-2 font-heading font-bold text-xl"
->
-  <img 
-    src="/logo.png" 
-    alt="VerifiedHands" 
-    className="h-12 w-auto"  // height 8 = 32px
-  />
-  <span className="text-2xl font-bold">
-    <span>Verified</span>
-    <span className="text-amber-500">Hands</span>
-  </span>
-</Link>
+          to="/"
+          className="flex items-center gap-2 font-heading font-bold text-xl"
+        >
+          <img
+            src="/logo.png"
+            alt="VerifiedHands"
+            className="h-12 w-auto" // height 8 = 32px
+          />
+          <span className="text-2xl font-bold">
+            <span>Verified</span>
+            <span className="text-amber-500">Hands</span>
+          </span>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -70,7 +75,6 @@ const Navbar = () => {
               )}
             </Link>
           ))}
-
         </div>
 
         {/* Desktop Right */}

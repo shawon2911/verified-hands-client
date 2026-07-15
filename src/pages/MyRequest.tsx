@@ -21,7 +21,7 @@ const MyRequests = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [_user, setUser] = useState<any>(null);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
