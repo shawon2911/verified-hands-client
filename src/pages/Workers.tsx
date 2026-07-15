@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { getWorkers } from "@/lib/api";
 import WorkerCard from "@/components/WorkerCard";
 
@@ -56,9 +56,11 @@ const Workers = () => {
     }
   };
 
+  // Filter and Sort
   useEffect(() => {
     let result = [...workers];
 
+    // Search filter
     if (searchTerm) {
       result = result.filter(
         (w) =>
@@ -68,18 +70,24 @@ const Workers = () => {
       );
     }
 
-    result = result.filter((w) => selectedTrades.includes(w.trade));
+    // Trade filter - যদি কিছু selected থাকে
+    if (selectedTrades.length > 0) {
+      result = result.filter((w) => selectedTrades.includes(w.trade));
+    }
 
+    // Location filter
     if (selectedLocation !== "All districts") {
       result = result.filter((w) => w.location.includes(selectedLocation));
     }
 
+    // Rating filter
     if (selectedRating === "4+ stars") {
       result = result.filter((w) => w.rating >= 4);
     } else if (selectedRating === "4.5+ stars") {
       result = result.filter((w) => w.rating >= 4.5);
     }
 
+    // Sort
     switch (sortBy) {
       case "rating-desc":
         result.sort((a, b) => b.rating - a.rating);
@@ -98,6 +106,7 @@ const Workers = () => {
     setCurrentPage(1);
   }, [workers, searchTerm, selectedTrades, selectedLocation, selectedRating, sortBy]);
 
+  // Pagination
   const totalPages = Math.ceil(filteredWorkers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentWorkers = filteredWorkers.slice(startIndex, startIndex + itemsPerPage);
@@ -115,6 +124,7 @@ const Workers = () => {
 
   return (
     <div className="bg-paper min-h-screen">
+      {/* Page Head */}
       <div className="bg-paper-dim border-b border-[#E5E1D8] py-10">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
           <h1 className="text-3xl font-bold text-navy">Find verified workers</h1>
@@ -129,10 +139,11 @@ const Workers = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
             {/* Filter Panel */}
             <aside className="bg-white border border-[#E5E1D8] rounded-xl p-5 sticky top-[88px] h-fit">
+              {/* Trade Filter */}
               <div className="mb-5">
                 <h4 className="text-xs uppercase tracking-wide text-navy-2 font-mono mb-2.5">Trade</h4>
                 {trades.map((trade) => (
-                  <label key={trade} className="flex items-center gap-2 text-sm mb-2 text-navy">
+                  <label key={trade} className="flex items-center gap-2 text-sm mb-2 text-navy cursor-pointer">
                     <input
                       type="checkbox"
                       checked={selectedTrades.includes(trade)}
@@ -144,6 +155,7 @@ const Workers = () => {
                 ))}
               </div>
 
+              {/* Location Filter */}
               <div className="mb-5">
                 <h4 className="text-xs uppercase tracking-wide text-navy-2 font-mono mb-2.5">Location</h4>
                 <select
@@ -159,6 +171,7 @@ const Workers = () => {
                 </select>
               </div>
 
+              {/* Price Range */}
               <div className="mb-5">
                 <h4 className="text-xs uppercase tracking-wide text-navy-2 font-mono mb-2.5">Price range</h4>
                 <input type="range" className="w-full accent-amber" />
@@ -168,6 +181,7 @@ const Workers = () => {
                 </div>
               </div>
 
+              {/* Rating Filter */}
               <div className="mb-5">
                 <h4 className="text-xs uppercase tracking-wide text-navy-2 font-mono mb-2.5">Minimum rating</h4>
                 <select
@@ -197,6 +211,7 @@ const Workers = () => {
 
             {/* Main Content */}
             <div>
+              {/* Toolbar */}
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-5">
                 <div className="flex-1 flex items-center border border-[#E5E1D8] rounded-lg px-4 bg-white h-11 w-full sm:max-w-sm">
                   <input
@@ -215,10 +230,10 @@ const Workers = () => {
                   <option value="rating-desc">Sort: Rating (high to low)</option>
                   <option value="price-low">Sort: Price (low to high)</option>
                   <option value="price-high">Sort: Price (high to low)</option>
-                  <option value="newest">Sort: Newest</option>
                 </select>
               </div>
 
+              {/* Cards Grid */}
               {loading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -239,11 +254,12 @@ const Workers = () => {
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {currentWorkers.map((worker, index) => (
-                      <WorkerCard key={worker._id} worker={worker} index={index} />
+                    {currentWorkers.map((worker) => (
+                      <WorkerCard key={worker._id} worker={worker} />
                     ))}
                   </div>
 
+                  {/* Pagination */}
                   {totalPages > 1 && (
                     <div className="flex justify-center gap-2 mt-9">
                       <button
