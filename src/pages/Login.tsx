@@ -10,25 +10,36 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+ const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    const { error: authError } = await authClient.signIn.email({
+  try {
+    const { data, error: authError } = await authClient.signIn.email({
       email,
       password,
     });
 
-    setLoading(false);
-
     if (authError) {
       setError(authError.message || "Login failed. Please try again.");
+      setLoading(false);
       return;
     }
 
+    console.log("✅ Login Response:", data); // ✅ এইটা দেখুন
+
+    // ✅ Immediately check session
+    const session = await authClient.getSession();
+    console.log("✅ Session after login:", session);
+
     navigate("/");
-  };
+  } catch (err) {
+    console.error("❌ Login Error:", err);
+    setError("Something went wrong. Please try again.");
+    setLoading(false);
+  }
+};
 
   const handleDemoLogin = () => {
     setEmail("employer1@gmail.com");
