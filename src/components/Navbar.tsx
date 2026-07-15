@@ -43,22 +43,23 @@ const Navbar = () => {
     { name: "Categories", path: "/categories" },
   ];
 
-  // ✅ Role-based additional links with proper role extraction
-  const user = session?.user;
-  const userRole = (user as any)?.role || "employer";
+ const user = session?.user;
+const userRole = user?.role; // no fallback default
 
-  const roleLinks =
-    userRole === "employer"
-      ? [
-          { name: "My requests", path: "/my-requests" },
-          { name: "Dashboard", path: "/dashboard/manage" },
-        ]
-      : userRole === "worker"
-      ? [
-          { name: "My profile", path: "/my-profile" },
-          { name: "Available Jobs", path: "/worker/jobs" },
-        ]
-      : [];
+const roleLinks =
+  !session
+    ? []
+    : userRole === "employer"
+    ? [
+        { name: "My requests", path: "/my-requests" },
+        { name: "Dashboard", path: "/dashboard/manage" },
+      ]
+    : userRole === "worker"
+    ? [
+        { name: "My profile", path: "/my-profile" },
+        { name: "Available Jobs", path: "/worker/jobs" },
+      ]
+    : [];
 
   const allLinks = [...navLinks, ...roleLinks];
 
