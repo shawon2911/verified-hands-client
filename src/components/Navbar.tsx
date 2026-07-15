@@ -34,17 +34,19 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 flex items-center justify-between">
         {/* Logo */}
         <Link
-          to="/"
-          className="flex items-center gap-2.5 font-heading font-bold text-xl"
-        >
-          <div className="w-8.5 h-8.5 bg-navy rounded-lg flex items-center justify-center text-amber font-bold text-lg">
-            VH
-          </div>
-          <span className="text-2xl font-bold">
-            <span>Verified</span>
-            <span className="text-amber-500">Hands</span>
-          </span>
-        </Link>
+  to="/"
+  className="flex items-center gap-2 font-heading font-bold text-xl"
+>
+  <img 
+    src="/logo.png" 
+    alt="VerifiedHands" 
+    className="h-12 w-auto"  // height 8 = 32px
+  />
+  <span className="text-2xl font-bold">
+    <span>Verified</span>
+    <span className="text-amber-500">Hands</span>
+  </span>
+</Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">

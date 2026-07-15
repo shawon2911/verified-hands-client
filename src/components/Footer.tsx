@@ -18,12 +18,20 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="col-span-2"
           >
-            <Link to="/" className="flex items-center gap-2.5 font-heading font-bold text-xl text-white mb-3">
-              <div className="w-[34px] h-[34px] bg-amber rounded-lg flex items-center justify-center text-navy font-bold text-lg">
-                V
-              </div>
-              VerifiedHands
-            </Link>
+            <Link
+  to="/"
+  className="flex items-center gap-2 font-heading font-bold text-xl"
+>
+  <img 
+    src="/favicon4.png" 
+    alt="VerifiedHands" 
+    className="h-12 w-auto"  // height 8 = 32px
+  />
+  <span className="text-2xl text-white font-bold">
+    <span>Verified</span>
+    <span className="text-amber-500">Hands</span>
+  </span>
+</Link>
             <p className="text-sm max-w-xs text-paper/60">
               Bangladesh's verified marketplace for local skilled workers.
             </p>
