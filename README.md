@@ -131,7 +131,7 @@ npm run dev
 | Employer | `demo@employer.com` | `demo123456` |
 | Worker | `demo@worker.com` | `demo123456` |
 
-*(Use the "Demo Login" button on the login page to auto-fill these credentials.)*
+
 
 ---
 

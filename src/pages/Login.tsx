@@ -31,8 +31,8 @@ const Login = () => {
   };
 
   const handleDemoLogin = () => {
-    setEmail("demo@employer.com");
-    setPassword("demo123456");
+    setEmail("employer1@gmail.com");
+    setPassword("employer12345");
   };
 
   return (
