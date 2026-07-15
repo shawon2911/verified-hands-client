@@ -22,7 +22,7 @@ const Navbar = () => {
   // Role-based additional links
   const roleLinks =
     session?.user?.role === "employer"
-      ? [{ name: "My requests", path: "/my-requests" }]
+      ? [{ name: "My requests", path: "/my-requests" }, { name: "Dashboard", path: "/dashboard/manage"}]
       : session?.user?.role === "worker"
         ? [{ name: "My profile", path: "/my-profile" }]
         : [];
@@ -68,6 +68,7 @@ const Navbar = () => {
               )}
             </Link>
           ))}
+
         </div>
 
         {/* Desktop Right */}

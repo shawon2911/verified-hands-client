@@ -20,3 +20,19 @@ export const getWorkerById = async (id: string) => {
   const response = await api.get(`/api/workers/${id}`);
   return response.data;
 };
+
+
+export const getJobs = async () => {
+  const response = await api.get("/api/jobs");
+  return response.data;
+};
+
+export const getEmployerJobs = async (employerId: string) => {
+  const response = await api.get(`/api/jobs/employer/${employerId}`);
+  return response.data;
+};
+
+export const getJobById = async (id: string) => {
+  const response = await api.get(`/api/jobs/${id}`);
+  return response.data;
+};

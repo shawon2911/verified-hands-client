@@ -10,6 +10,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import AddProfile from "./pages/AddProfile";
 import WorkerProfilePage from "./pages/WorkerProfile";
+import PostJob from "./pages/PostJob";
+import Dashboard from "./pages/Dashboard";
+import MyRequests from "./pages/MyRequest";
+import JobDetails from "./pages/JobDetails";
 
 function App() {
   
@@ -25,6 +29,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile/add" element={<AddProfile />} />
         <Route path="/my-profile" element={<WorkerProfilePage />} />
+        <Route path="/post-job" element={<PostJob />} />
+        <Route path="/dashboard/manage" element={<Dashboard />} />
+        <Route path="/my-requests" element={<MyRequests />} />
+        <Route path="/jobs/:id" element={<JobDetails />} />
 
       </Route>
     </Routes>
