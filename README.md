@@ -53,7 +53,7 @@ In Bangladesh, hiring a local tradesperson — an electrician, plumber, or drive
 | **Backend** | Node.js, Express.js, TypeScript |
 | **Database** | MongoDB with Mongoose |
 | **Authentication** | Better-Auth (JWT-based sessions, role-based access control) |
-| **Deployment** | Vercel (frontend ) | Redis (Backend)
+| **Deployment** | Vercel (frontend ) | Render (Backend)
 
 ---
 
@@ -128,10 +128,13 @@ npm run dev
 
 | Role | Email | Password |
 |---|---|---|
-| Employer | `demo@employer.com` | `demo123456` |
-| Worker | `demo@worker.com` | `demo123456` |
+| Employer | `employer1@gmail.com` | `employer12345` |
+| Worker | `worker1@gmail.com` | `worker12345` |
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56b602a580829fdeccdf435cb31bb750ea0a2e90
 
 ---
 
@@ -154,7 +157,9 @@ npm run dev
 
 ## 📸 Screenshots
 
-> ![alt text](home.png)![alt text](find-workers.png)![alt text](available-jobs.png) ![alt text](find-workers-1.png)![alt text](dashboard.png)
+> Home : ![alt text](home.png)
+> Find Workers: ![alt text](find-workers.png)
+> Dashboard: ![alt text](dashboard.png)
 
 ---
 
