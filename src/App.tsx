@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import MyRequests from "./pages/MyRequest";
 import JobDetails from "./pages/JobDetails";
 import WorkerDashboard from "./pages/WorkerDashboard";
+import Categories from "./pages/Categories";
 
 function App() {
   
@@ -35,6 +36,7 @@ function App() {
         <Route path="/my-requests" element={<MyRequests />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/worker/jobs" element={<WorkerDashboard />} />
+        <Route path="/categories" element={<Categories />} />
 
       </Route>
     </Routes>
