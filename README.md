@@ -15,7 +15,7 @@ Hire electricians, plumbers, drivers, and other blue-collar professionals you ca
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.0-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-6.0-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-1.6-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
-React + TypeScript + Vite + Tailwind CSS
+
 
 [Live Demo](#) 
 
@@ -135,24 +135,7 @@ npm run dev
 
 ---
 
-## 📡 API Overview
 
-| Method | Endpoint | Access |
-|---|---|---|
-| `POST` | `/api/auth/sign-up/email` | Public |
-| `POST` | `/api/auth/sign-in/email` | Public |
-| `GET` | `/api/workers` | Public — filters, sort, pagination |
-| `GET` | `/api/workers/:id` | Public |
-| `POST` | `/api/workers` | Worker (authenticated) |
-| `PATCH` / `DELETE` | `/api/workers/:id` | Owner worker (authenticated) |
-| `POST` | `/api/jobs` | Employer (authenticated) |
-| `GET` | `/api/jobs` | Owner employer (authenticated) |
-| `PATCH` / `DELETE` | `/api/jobs/:id` | Owner employer (authenticated) |
-| `POST` | `/api/reviews` | Employer (authenticated) |
-
-All protected routes verify the session server-side — role checks are never trusted from the client alone.
-
----
 
 ## 🗺️ Pages
 
@@ -171,7 +154,7 @@ All protected routes verify the session server-side — role checks are never tr
 
 ## 📸 Screenshots
 
-> _Add screenshots or a short demo GIF of the Home page, Worker Listing, and Dashboard here._
+> ![alt text](home.png)![alt text](find-workers.png)![alt text](available-jobs.png) ![alt text](find-workers-1.png)![alt text](dashboard.png)
 
 ---
 
