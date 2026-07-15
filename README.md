@@ -154,7 +154,9 @@ npm run dev
 
 ## 📸 Screenshots
 
-> ![alt text](home.png)![alt text](find-workers.png)![alt text](available-jobs.png) ![alt text](find-workers-1.png)![alt text](dashboard.png)
+> Home : ![alt text](home.png)
+> Find Workers: ![alt text](find-workers.png)
+> Dashboard: ![alt text](dashboard.png)
 
 ---
 
