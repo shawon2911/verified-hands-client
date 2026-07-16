@@ -17,7 +17,7 @@ Hire electricians, plumbers, drivers, and other blue-collar professionals you ca
 ![Axios](https://img.shields.io/badge/Axios-1.6-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
 
-[Live Demo](#) 
+[Live Demo](https://verifiedhand.vercel.app) 
 
 </div>
 
