@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { api } from "@/lib/api";
@@ -10,6 +10,8 @@ const PostJob = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [selectedTrade, setSelectedTrade] = useState("Electrician");
+  const [_checkingAuth, setCheckingAuth] = useState(true);
+
   const [formData, setFormData] = useState({
     title: "",
     shortDescription: "",
@@ -46,6 +48,7 @@ const PostJob = () => {
       if (!session) {
         setError("Please login first");
         setLoading(false);
+        
         return;
       }
 
@@ -66,6 +69,27 @@ const PostJob = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+  const checkAuth = async () => {
+    try {
+      const { data: session } = await authClient.getSession();
+      if (!session) {
+        navigate("/login");
+        return;
+      }
+    } catch (error) {
+      console.error("Session check failed:", error);
+      navigate("/login");
+      return;
+    } finally {
+      setCheckingAuth(false);
+    }
+  };
+
+  checkAuth();
+}, [navigate]);
+  
 
   return (
     <div className="bg-paper min-h-screen">
